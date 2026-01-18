@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>envsure - Validate Your .env Files Before You Ship</title>
+  <meta name="title" content="envsure - Validate Your .env Files Before You Ship">
+  <meta name="description" content="A lightweight, zero-config CLI tool for validating and comparing .env files. Catch missing variables, empty values, and configuration drift before they break production.">
+  <meta name="keywords" content="env, dotenv, environment variables, CLI, validation, configuration, devtools, nodejs, npm, developer tools, deployment, ci/cd">
+  <meta name="author" content="Ay7ot">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  <meta name="revisit-after" content="7 days">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://envsure.online/">
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#FF5722">
+  <meta name="msapplication-TileColor" content="#08080A">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="envsure">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://envsure.online/">
+  <meta property="og:title" content="envsure - Validate Your .env Files Before You Ship">
+  <meta property="og:description" content="A lightweight, zero-config CLI that catches missing variables, empty values, and configuration drift. Stop environment issues from breaking production.">
+  <meta property="og:image" content="https://envsure.online/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="envsure - Environment Variable Validation CLI">
+  <meta property="og:site_name" content="envsure">
+  <meta property="og:locale" content="en_US">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://envsure.online/">
+  <meta name="twitter:title" content="envsure - Validate Your .env Files Before You Ship">
+  <meta name="twitter:description" content="A lightweight, zero-config CLI that catches missing variables, empty values, and configuration drift. Stop environment issues from breaking production.">
+  <meta name="twitter:image" content="https://envsure.online/og-image.png">
+  <meta name="twitter:image:alt" content="envsure - Environment Variable Validation CLI">
+  <meta name="twitter:creator" content="@TeyeAyo">
+  
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "envsure",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "description": "A lightweight CLI tool for validating and comparing .env files. Catch missing variables, empty values, and configuration drift before they break production.",
+    "url": "https://envsure.online",
+    "downloadUrl": "https://www.npmjs.com/package/envsure",
+    "softwareVersion": "1.0.0",
+    "author": {
+      "@type": "Person",
+      "name": "Ay7ot",
+      "url": "https://github.com/Ay7ot"
+    },
+    "license": "https://opensource.org/licenses/MIT",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "ratingCount": "1"
+    },
+    "featureList": [
+      "Validate .env against .env.example",
+      "Compare two .env files",
+      "Document environment variables",
+      "Detect missing variables",
+      "Find empty values",
+      "Catch case mismatches",
+      "Identify duplicate keys",
+      "JSON output for CI/CD"
+    ],
+    "screenshot": "https://envsure.online/og-image.png"
+  }
+  </script>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "envsure",
+    "url": "https://envsure.online",
+    "description": "A lightweight CLI tool for validating and comparing .env files",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://envsure.online/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is envsure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "envsure is a lightweight, zero-config CLI tool for validating and comparing .env files. It helps developers catch missing variables, empty values, and configuration drift before they cause production issues."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install envsure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install envsure globally via npm: npm install -g envsure. You can also use npx to run it without installing: npx envsure check."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What issues can envsure detect?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "envsure can detect: missing variables, empty values, extra undocumented variables, case mismatches (like DB_URL vs db_url), duplicate keys, and whitespace issues in variable names."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use envsure in CI/CD pipelines?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Use 'envsure check --strict' to treat warnings as errors, and '--json' for machine-readable output. The command returns exit code 0 for success and 1 for issues found."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">&gt;_</span>
+        <span>envsure</span>
+      </a>
+      <div class="nav-links">
+        <a href="#problem">Why</a>
+        <a href="#features">Features</a>
+        <a href="#usage">Docs</a>
+        <a href="https://github.com/Ay7ot/envsure" target="_blank" rel="noopener" class="nav-github">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="#problem">Why</a>
+    <a href="#features">Features</a>
+    <a href="#usage">Docs</a>
+    <a href="https://github.com/Ay7ot/envsure" target="_blank" rel="noopener">GitHub</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          <span>Open Source CLI Tool</span>
+        </div>
+        
+        <h1 class="hero-title">
+          Validate your<br>
+          <span class="highlight">.env</span> files<br>
+          before you ship
+        </h1>
+        
+        <p class="hero-subtitle">
+          A lightweight, zero-config CLI that catches missing variables, 
+          empty values, and configuration drift. Stop environment issues 
+          from breaking production.
+        </p>
+        
+        <div class="hero-actions">
+          <div class="install-box">
+            <div class="install-command">
+              <span class="prompt">$</span>
+              <code>npm install -g envsure</code>
+              <button class="copy-btn" onclick="copyToClipboard('npm install -g envsure', this)" aria-label="Copy command">
+                <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+            </div>
+            <span class="install-note">Works with Node.js 16+</span>
+          </div>
+          
+          <div class="hero-buttons">
+            <a href="#usage" class="btn btn-primary">Get Started</a>
+            <a href="https://github.com/Ay7ot/envsure" target="_blank" class="btn btn-outline">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-demo">
+        <div class="terminal">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="terminal-title">terminal</span>
+          </div>
+          <div class="terminal-body">
+            <div class="line"><span class="prompt">$</span> envsure check</div>
+            <div class="line blank"></div>
+            <div class="line output">Checking <span class="cyan">.env</span> against <span class="cyan">.env.example</span></div>
+            <div class="line blank"></div>
+            <div class="line"><span class="error">✗</span> <span class="red">Missing variables:</span></div>
+            <div class="line indent">• DATABASE_URL</div>
+            <div class="line indent">• API_SECRET</div>
+            <div class="line blank"></div>
+            <div class="line"><span class="warn">⚠</span> <span class="yellow">Empty values:</span></div>
+            <div class="line indent">• REDIS_URL</div>
+            <div class="line blank"></div>
+            <div class="line">Found <span class="red">2 errors</span> and <span class="yellow">1 warning</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Powerful Commands</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Config Required</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">6</span>
+          <span class="stat-label">Issue Types Detected</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Offline & Private</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section id="problem" class="problem">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">The Problem</span>
+        <h2 class="section-title">Environment variables are a silent killer</h2>
+        <p class="section-desc">
+          They seem simple until they break production at 2am. Here's what typically goes wrong:
+        </p>
+      </div>
+      
+      <div class="problem-bento">
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <line x1="20" y1="8" x2="20" y2="14"></line>
+              <line x1="23" y1="11" x2="17" y2="11"></line>
+            </svg>
+          </div>
+          <h3>Missing Variables</h3>
+          <p>Someone adds <code>NEW_API_KEY</code> to production but forgets to update the example file. New developers onboard without it.</p>
+        </div>
+        
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h3>Empty Values</h3>
+          <p>The key exists, but the value is blank. Your app starts fine, then mysteriously fails when it tries to connect to the database or external service.</p>
+        </div>
+        
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 7 4 4 20 4 20 7"></polyline>
+              <line x1="9" y1="20" x2="15" y2="20"></line>
+              <line x1="12" y1="4" x2="12" y2="20"></line>
+            </svg>
+          </div>
+          <h3>Case Mismatches</h3>
+          <p><code>DB_URL</code> vs <code>db_url</code></p>
+        </div>
+        
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="3" y1="9" x2="21" y2="9"></line>
+              <line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+          </div>
+          <h3>Duplicate Keys</h3>
+          <p>Same variable twice. Last wins.</p>
+        </div>
+        
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+          </div>
+          <h3>Configuration Drift</h3>
+          <p>Production has 47 variables, staging has 42, development has 38. Which ones are actually needed? Good luck figuring that out without proper tooling.</p>
+        </div>
+        
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <h3>No Documentation</h3>
+          <p>What does <code>FEATURE_FLAG_XYZ</code> do? What's a valid value? Open the code and hope someone left a comment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Features</span>
+        <h2 class="section-title">Three commands. Zero configuration.</h2>
+        <p class="section-desc">
+          envsure does exactly what you need and nothing more. No accounts, no dashboards, no complexity.
+        </p>
+      </div>
+      
+      <div class="features-list">
+        <!-- Check Command -->
+        <div class="feature-block">
+          <div class="feature-info">
+            <div class="feature-badge">
+              <span class="cmd">check</span>
+              <span class="tag primary">Primary</span>
+            </div>
+            <h3>Validate your environment</h3>
+            <p>
+              Compare your <code>.env</code> file against <code>.env.example</code> to catch 
+              issues before they become problems. The command treats your example file as the 
+              source of truth and reports any deviations.
+            </p>
+            <ul class="feature-checks">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Missing variables from example
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Empty or blank values
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Extra undocumented variables
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Case sensitivity issues
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Duplicate key definitions
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Whitespace problems
+              </li>
+            </ul>
+          </div>
+          <div class="feature-demo">
+            <div class="terminal small">
+              <div class="terminal-header">
+                <div class="terminal-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+              </div>
+              <div class="terminal-body">
+                <div class="line"><span class="prompt">$</span> envsure check</div>
+                <div class="line blank"></div>
+                <div class="line"><span class="success">✓</span> <span class="green">All variables are correctly defined</span></div>
+                <div class="line blank"></div>
+                <div class="line dim">Found 0 errors and 0 warnings</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Diff Command -->
+        <div class="feature-block reverse">
+          <div class="feature-info">
+            <div class="feature-badge">
+              <span class="cmd">diff</span>
+            </div>
+            <h3>Compare any two files</h3>
+            <p>
+              See exactly what's different between any two environment files. Perfect for 
+              debugging why staging works but production doesn't, or ensuring parity across environments.
+            </p>
+            <ul class="feature-checks">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Variables only in file A
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Variables only in file B
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Value differences (opt-in)
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Sensitive value masking
+              </li>
+            </ul>
+          </div>
+          <div class="feature-demo">
+            <div class="terminal small">
+              <div class="terminal-header">
+                <div class="terminal-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+              </div>
+              <div class="terminal-body">
+                <div class="line"><span class="prompt">$</span> envsure diff .env.prod .env.staging</div>
+                <div class="line blank"></div>
+                <div class="line">Comparing <span class="cyan">.env.prod</span> and <span class="cyan">.env.staging</span></div>
+                <div class="line blank"></div>
+                <div class="line dim">→ Only in .env.prod:</div>
+                <div class="line indent"><span class="red">- SENTRY_DSN</span></div>
+                <div class="line indent"><span class="red">- ANALYTICS_KEY</span></div>
+                <div class="line blank"></div>
+                <div class="line dim">→ Only in .env.staging:</div>
+                <div class="line indent"><span class="green">+ DEBUG_MODE</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Explain Command -->
+        <div class="feature-block">
+          <div class="feature-info">
+            <div class="feature-badge">
+              <span class="cmd">explain</span>
+            </div>
+            <h3>Understand your variables</h3>
+            <p>
+              Get instant documentation for any environment variable. envsure reads 
+              comments from your <code>.env.example</code> file and displays them in a 
+              clean, readable format with type inference.
+            </p>
+            <ul class="feature-checks">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Comment extraction
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Automatic type inference
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Example values
+              </li>
+            </ul>
+          </div>
+          <div class="feature-demo">
+            <div class="terminal small">
+              <div class="terminal-header">
+                <div class="terminal-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+              </div>
+              <div class="terminal-body">
+                <div class="line"><span class="prompt">$</span> envsure explain DB_POOL_SIZE</div>
+                <div class="line blank"></div>
+                <div class="line output bold">DB_POOL_SIZE</div>
+                <div class="line blank"></div>
+                <div class="line">Purpose: <span class="dim">Maximum number of database</span></div>
+                <div class="line"><span class="dim">         connections allowed</span></div>
+                <div class="line">Expected type: <span class="blue">integer</span></div>
+                <div class="line">Example: <span class="cyan">10</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Usage Section -->
+  <section id="usage" class="usage">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Getting Started</span>
+        <h2 class="section-title">Up and running in seconds</h2>
+        <p class="section-desc">
+          No configuration files. No setup wizards. Just install and run.
+        </p>
+      </div>
+      
+      <div class="usage-content">
+        <div class="usage-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4>Install globally via npm</h4>
+              <div class="code-inline">
+                <code>npm install -g envsure</code>
+                <button class="copy-btn small" onclick="copyToClipboard('npm install -g envsure', this)">
+                  <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <p class="step-note">Or use npx: <code>npx envsure check</code></p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4>Navigate to your project</h4>
+              <div class="code-inline">
+                <code>cd your-project</code>
+              </div>
+              <p class="step-note">Make sure you have a <code>.env.example</code> file</p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h4>Run the validation</h4>
+              <div class="code-inline">
+                <code>envsure check</code>
+                <button class="copy-btn small" onclick="copyToClipboard('envsure check', this)">
+                  <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <p class="step-note">Exit code 0 = success, 1 = issues found</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="options-panel">
+          <h4>Command Options</h4>
+          <div class="options-list">
+            <div class="option-item">
+              <code>--strict</code>
+              <span>Treat warnings as errors (exit code 1)</span>
+            </div>
+            <div class="option-item">
+              <code>--json</code>
+              <span>Output results as JSON for scripting</span>
+            </div>
+            <div class="option-item">
+              <code>--no-color</code>
+              <span>Disable colored output for CI logs</span>
+            </div>
+            <div class="option-item">
+              <code>-e, --env &lt;file&gt;</code>
+              <span>Custom .env file path</span>
+            </div>
+            <div class="option-item">
+              <code>-x, --example &lt;file&gt;</code>
+              <span>Custom .env.example file path</span>
+            </div>
+            <div class="option-item">
+              <code>-v, --values</code>
+              <span>Show value differences in diff</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Section -->
+  <section class="use-cases">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Use Cases</span>
+        <h2 class="section-title">Fits into any workflow</h2>
+      </div>
+      
+      <div class="use-cases-list">
+        <div class="use-case-card">
+          <div class="use-case-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+          <div class="use-case-content">
+            <h4>CI/CD Pipelines</h4>
+            <p>Add to your build process to catch missing variables before deployment reaches production.</p>
+          </div>
+          <code class="use-case-code">envsure check --strict</code>
+        </div>
+        
+        <div class="use-case-card">
+          <div class="use-case-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="use-case-content">
+            <h4>Team Onboarding</h4>
+            <p>New developers can instantly validate their local setup matches project requirements.</p>
+          </div>
+          <code class="use-case-code">envsure check</code>
+        </div>
+        
+        <div class="use-case-card">
+          <div class="use-case-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+              <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+              <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <div class="use-case-content">
+            <h4>Environment Audits</h4>
+            <p>Compare production vs staging vs dev to understand configuration differences.</p>
+          </div>
+          <code class="use-case-code">envsure diff .env.prod .env.staging</code>
+        </div>
+        
+        <div class="use-case-card">
+          <div class="use-case-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <div class="use-case-content">
+            <h4>Documentation Lookup</h4>
+            <p>Quickly understand what a variable does without digging through codebases.</p>
+          </div>
+          <code class="use-case-code">envsure explain API_KEY</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Ready for fewer broken deploys?</h2>
+        <p>Install envsure and start validating your environment files today. It takes 30 seconds.</p>
+        <div class="cta-install">
+          <div class="install-command">
+            <span class="prompt">$</span>
+            <code>npm install -g envsure</code>
+            <button class="copy-btn" onclick="copyToClipboard('npm install -g envsure', this)">
+              <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="cta-links">
+          <a href="https://github.com/Ay7ot/envsure" target="_blank">View on GitHub</a>
+          <span class="divider">•</span>
+          <a href="https://www.npmjs.com/package/envsure" target="_blank">View on npm</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="logo-icon">&gt;_</span>
+          <span>envsure</span>
+        </div>
+        <p class="footer-tagline">No dashboards. No magic. Just fewer broken deploys.</p>
+        <div class="footer-links">
+          <a href="https://github.com/Ay7ot/envsure" target="_blank">GitHub</a>
+          <a href="https://www.npmjs.com/package/envsure" target="_blank">npm</a>
+          <a href="https://github.com/Ay7ot/envsure/issues" target="_blank">Issues</a>
+          <a href="https://github.com/Ay7ot/envsure/blob/main/LICENSE" target="_blank">License</a>
+        </div>
+        <p class="footer-copy">MIT License &copy; 2026</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Copy to clipboard
+    function copyToClipboard(text, button) {
+      navigator.clipboard.writeText(text).then(() => {
+        const copyIcon = button.querySelector('.copy-icon');
+        const checkIcon = button.querySelector('.check-icon');
+        copyIcon.style.display = 'none';
+        checkIcon.style.display = 'block';
+        setTimeout(() => {
+          copyIcon.style.display = 'block';
+          checkIcon.style.display = 'none';
+        }, 2000);
+      });
+    }
+
+    // Mobile menu toggle
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    menuBtn?.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offset = 80;
+          const position = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: position, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

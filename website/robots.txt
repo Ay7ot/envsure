@@ -1,0 +1,7 @@
+# robots.txt for envsure
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://envsure.online/sitemap.xml

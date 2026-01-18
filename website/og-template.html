@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200, height=630">
+  <title>OG Image Template - envsure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 1200px;
+      height: 630px;
+      font-family: 'Space Grotesk', sans-serif;
+      background: #08080A;
+      color: #EAEAEC;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Grid pattern */
+    .grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 87, 34, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 87, 34, 0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 70%);
+    }
+    
+    /* Gradient orbs */
+    .orb1 {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 87, 34, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    
+    .orb2 {
+      position: absolute;
+      bottom: -150px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 87, 34, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 60px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    
+    .logo-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      background: #131316;
+      border-radius: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 32px;
+      font-weight: 700;
+      color: #FF5722;
+    }
+    
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+    
+    h1 {
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+      margin-bottom: 28px;
+    }
+    
+    h1 .highlight {
+      background: linear-gradient(135deg, #FF5722 0%, #FF8A65 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    p {
+      font-size: 24px;
+      color: #8E8E96;
+      max-width: 700px;
+      line-height: 1.5;
+      margin-bottom: 36px;
+    }
+    
+    .command {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 28px;
+      background: #0C0C0E;
+      border: 1px solid #232328;
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+    }
+    
+    .command .prompt {
+      color: #FF5722;
+      font-weight: 600;
+    }
+    
+    .command code {
+      color: #EAEAEC;
+    }
+    
+    .badge {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      color: #56565E;
+    }
+    
+    .badge svg {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+  
+  <div class="content">
+    <div class="logo">
+      <div class="logo-icon">&gt;_</div>
+      <span class="logo-text">envsure</span>
+    </div>
+    
+    <h1>Validate your <span class="highlight">.env</span> files before you ship</h1>
+    
+    <p>A lightweight CLI that catches missing variables, empty values, and configuration drift.</p>
+    
+    <div class="command">
+      <span class="prompt">$</span>
+      <code>npm install -g envsure</code>
+    </div>
+  </div>
+  
+  <div class="badge">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+    </svg>
+    github.com/Ay7ot/envsure
+  </div>
+</body>
+</html>
