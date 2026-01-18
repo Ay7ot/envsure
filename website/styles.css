@@ -470,6 +470,7 @@ code {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   line-height: 1.8;
+  overflow-x: auto;
 }
 
 .terminal-body .line { white-space: pre; }
@@ -987,6 +988,9 @@ code {
   font-size: 0.8rem;
   color: var(--text-primary);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 /* ============ CTA SECTION ============ */
@@ -1158,13 +1162,19 @@ code {
   .options-panel { position: static; }
   
   .use-case-card {
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  .use-case-content {
+    width: 100%;
   }
   
   .use-case-code {
-    grid-column: 2;
-    justify-self: start;
+    max-width: 100%;
+    overflow-x: auto;
   }
 }
 
@@ -1202,13 +1212,29 @@ code {
   .option-item code { min-width: 0; }
   
   .use-case-card {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 16px;
     text-align: center;
+    padding: 24px 20px;
   }
   
   .use-case-icon { margin: 0 auto; }
-  .use-case-code { justify-self: center; font-size: 0.75rem; }
+  
+  .use-case-content {
+    width: 100%;
+  }
+  
+  .use-case-code { 
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.72rem;
+    padding: 10px 14px;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
   
   .cta-box { padding: 50px 28px; }
   .cta-box h2 { font-size: 1.6rem; }
@@ -1218,7 +1244,7 @@ code {
 
 /* ============ RESPONSIVE - SMALL MOBILE ============ */
 @media (max-width: 480px) {
-  .container { padding: 0 18px; }
+  .container { padding: 0 16px; }
   
   .hero-title { font-size: 1.9rem; }
   .hero-buttons { flex-direction: column; }
@@ -1227,12 +1253,36 @@ code {
   .section-title { font-size: 1.5rem; }
   .section-tag::before, .section-tag::after { display: none; }
   
-  .terminal-body { font-size: 0.75rem; padding: 16px; }
+  .terminal-body { font-size: 0.72rem; padding: 14px; }
+  .terminal-body .line { white-space: pre-wrap; word-break: break-all; }
   
-  .install-command { padding: 12px 14px; font-size: 0.85rem; }
+  .install-command { padding: 12px 14px; font-size: 0.82rem; }
   .code-inline { flex-wrap: wrap; gap: 8px; }
   
   .stat-item { flex: 0 0 100%; }
+  
+  /* Use case cards - extra small */
+  .use-case-card {
+    padding: 20px 16px;
+  }
+  
+  .use-case-icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .use-case-content h4 {
+    font-size: 1rem;
+  }
+  
+  .use-case-content p {
+    font-size: 0.85rem;
+  }
+  
+  .use-case-code {
+    font-size: 0.68rem;
+    padding: 8px 12px;
+  }
 }
 
 /* ============ ANIMATIONS & MICRO-INTERACTIONS ============ */
